@@ -82,7 +82,7 @@ jobs:
         run: |
           cd npm
           # set the binary name
-          bin="app"
+          bin="create_fruit_app"
           # derive the OS and architecture from the build matrix name
           # note: when split by a hyphen, first part is the OS and the second is the architecture
           node_os=$(echo "${{ matrix.build.NAME }}" | cut -d '-' -f1)
@@ -110,7 +110,7 @@ jobs:
           cp "../target/${{ matrix.build.TARGET }}/release/${bin}" "${node_pkg}/bin"
           # publish the package
           cd "${node_pkg}"
-          npm publish --access public --dry-run
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -135,6 +135,6 @@ jobs:
           cd npm/app
           yarn install # requires optional dependencies to be present in the registry
           yarn build
-          npm publish --access public --dry-run
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
